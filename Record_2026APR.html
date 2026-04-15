@@ -4,7 +4,7 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>聯合管制處安全保安管理會議紀錄 - 2026年4月</title>
-<script src="./聯合管制處安全保安管理會議紀錄 - 2026年3月_R8_files/xlsx.full.min.js.下載"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;700&display=swap');
 
@@ -479,26 +479,18 @@
   }
   .cell-wrap:hover .cell-tooltip { display: block; }
   @media print {
-    .cell-tooltip { display: none !important; }
-    .cell-has-note { border-bottom: none !important; }
-  }
-  @media print {
     /* ══════════════════════════════════════
-       A4 橫式列印 — 白底黑字，12pt，好讀
+       A4 橫式列印 — 保留彩色，12pt
     ══════════════════════════════════════ */
     @page {
       size: A4 landscape;
       margin: 10mm 12mm;
     }
 
-    /* 全域白底黑字 */
+    /* 強制保留彩色列印 */
     *, *::before, *::after {
-      background: white !important;
-      color: black !important;
-      box-shadow: none !important;
-      text-shadow: none !important;
-      -webkit-print-color-adjust: economy !important;
-      print-color-adjust: economy !important;
+      -webkit-print-color-adjust: exact !important;
+      print-color-adjust: exact !important;
     }
 
     /* ── 隱藏不列印元素 ── */
@@ -506,53 +498,36 @@
     .img-placeholder,
     .img-upload-btn,
     input[type="file"],
-    .cell-tooltip,
-    /* dashboard 由 JS 列印前移除，無需 CSS 隱藏 */
+    .cell-tooltip {
+      display: none !important;
+    }
 
-    /* ── 基礎字體 12pt ── */
+    /* ── 基礎字體 ── */
     html, body {
       font-size: 12pt !important;
       line-height: 1.5 !important;
       width: 100% !important;
+      background: white !important;
     }
     .page-wrapper {
       max-width: 100% !important;
       margin: 0 !important;
       width: 100% !important;
+      box-shadow: none !important;
     }
 
-    /* ── 封面 ── */
-    .cover-header {
-      background: white !important;
-      color: black !important;
-      border-bottom: 2px solid black !important;
-      padding: 5mm 8mm 4mm !important;
-    }
-    .cover-title   { font-size: 16pt !important; color: black !important; }
-    .cover-subtitle{ font-size: 11pt !important; color: #333 !important; }
-    .cover-meta    { font-size: 10pt !important; color: #333 !important; border-top: 1px solid #999 !important; }
-
-    /* ── Section 標題 ── */
+    /* ── Section 標題保留藍底白字 ── */
     .section-header {
-      background: white !important;
-      color: black !important;
-      border-top: 1.5px solid black !important;
-      border-bottom: 1.5px solid black !important;
       font-size: 12pt !important;
-      padding: 3px 8px !important;
-      font-weight: 700 !important;
+      padding: 4px 10px !important;
       page-break-after: avoid !important;
     }
-    .section-header .num { background: #eee !important; color: black !important; }
     .section { border-bottom: 0.5px solid #ccc !important; page-break-inside: avoid; }
-    .section-body { padding: 4px 8px !important; }
+    .section-body { padding: 4px 8px !important; overflow: visible !important; }
 
     /* ── Section subtitle ── */
     .section-subtitle {
       font-size: 11pt !important;
-      font-weight: 700 !important;
-      border-bottom: 1px solid #666 !important;
-      color: black !important;
       margin: 6px 0 4px !important;
       padding-bottom: 2px !important;
     }
@@ -566,76 +541,57 @@
       min-height: unset !important;
       font-size: 12pt !important;
     }
-    .edit-label { font-size: 10pt !important; color: #444 !important; font-weight: 700 !important; }
+    .edit-label { font-size: 10pt !important; font-weight: 700 !important; }
     .edit-block { margin-bottom: 6px !important; }
 
     /* ── 指示事項 ── */
     .instruction-item {
-      border-left: 2px solid #666 !important;
       padding: 3px 8px !important;
       margin-bottom: 5px !important;
     }
     .instruction-item .item-orig { font-size: 11pt !important; }
 
-    /* ── SMS / SePI 表格 ── */
+    /* ── SMS 表格 ── */
     .sms-table-wrap { overflow: visible !important; width: 100% !important; }
-    .sms-table, .risk-table, .dash-table {
+    .sms-table, .risk-table {
       font-size: 9pt !important;
       width: 100% !important;
       border-collapse: collapse !important;
       table-layout: auto !important;
     }
-    .sms-table th, .risk-table th, .dash-table th {
-      background: #ddd !important;
-      color: black !important;
+    .sms-table th, .risk-table th {
       font-size: 9pt !important;
       padding: 3px 5px !important;
       border: 0.5px solid #666 !important;
-      font-weight: 700 !important;
     }
-    .sms-table td, .risk-table td, .dash-table td {
+    .sms-table td, .risk-table td {
       padding: 2px 5px !important;
       border: 0.5px solid #aaa !important;
       word-break: break-word !important;
       vertical-align: top !important;
       font-size: 9pt !important;
     }
-    .sms-table tr:nth-child(even) td { background: #f5f5f5 !important; }
-    .sms-table tr:nth-child(odd)  td { background: white !important; }
 
-    /* ── Tier badge ── */
+    /* ── Tier badge & status label 保留原色 ── */
     .tier-badge {
-      background: white !important;
-      color: black !important;
-      border: 0.5px solid #666 !important;
       font-size: 8pt !important;
       padding: 0 3px !important;
     }
-
-    /* ── 本月達標 status label ── */
     .status-label {
-      background: white !important;
-      color: black !important;
-      border: 0.5px solid #888 !important;
       font-size: 8pt !important;
       padding: 0 3px !important;
     }
-
-    /* ── 風險表格 ── */
-    .risk-table th { background: #ccc !important; }
-    .risk-table td { font-size: 9pt !important; }
 
     /* ── misc ── */
-    .misc-section { border: 0.5px solid #999 !important; }
-    .misc-section-title { background: #ddd !important; color: black !important; font-size: 10pt !important; padding: 2px 8px !important; }
+    .misc-section-title { font-size: 10pt !important; padding: 2px 8px !important; }
 
-    /* ── 頁尾 ── */
-    .page-wrapper > div:last-child { background: white !important; color: black !important; border-top: 1px solid #999 !important; font-size: 9pt !important; }
+    /* ── tooltip 隱藏 ── */
+    .cell-tooltip { display: none !important; }
+    .cell-has-note { border-bottom: none !important; }
 
     /* ── 分頁控制 ── */
     tr { page-break-inside: avoid; }
     h1, h2, h3 { page-break-after: avoid; }
-    .cell-has-note { border-bottom: none !important; }
   }
 </style>
 </head>
@@ -657,14 +613,14 @@
   <!-- TOOLBAR  -->
   <div class="toolbar">
     <span class="hint"></span>
-    <!-- <label class="excel-upload-area" title="上傳 Excel 自動更新 SMS 指標數值">
+    <label class="excel-upload-area" title="上傳 Excel 自動更新 SMS 指標數值">
       📊 上傳 Excel 更新 SMS 數據
       <input type="file" id="excel-input" accept=".xlsx,.xls" onchange="handleExcel(this)">
     </label>
     <span id="excel-status" style="color: rgb(39, 174, 96);">✅ SPT：已更新 152 項執行情形　✅ JC：已更新 25 筆案件（2026-FEBRUARY）　✅ SePI：已更新 18 項</span>
     <button class="btn btn-save" onclick="saveAll()">💾 手動存檔</button>
     <button class="btn" style="background:#e8e8e8;color:#555;" onclick="clearSave()">🗑 清除存檔</button> 
-    <span id="save-status" style="font-size: 13px; color: rgb(90, 138, 106); font-weight: 600; opacity: 0; transition: opacity 0.5s;">✅ 已存檔</span> -->
+    <span id="save-status" style="font-size: 13px; color: rgb(90, 138, 106); font-weight: 600; opacity: 0; transition: opacity 0.5s;">✅ 已存檔</span> 
     <button class="btn btn-print" onclick="printWithoutDash()">🖨 列印</button>
   </div>
 
@@ -707,11 +663,9 @@
   </div>
 
   <!-- ══════════════════════════════════════════════
-       DASHBOARD — 安全指標速覽 + Tier 概述 + KPI 總表
+       DASHBOARD — 安全指標速覽 + Tier 概述
   ═══════════════════════════════════════════════ -->
   <div class="dash-wrap" id="dashboard-block">
-
-    <!-- 各 Tier 概述 -->
     <div class="dash-section-label">前月份單位安全指標執行概況</div>
     <div class="dash-tier-grid">
       <div class="dash-tier-card dt1">
@@ -735,7 +689,7 @@
         <div class="dash-tier-title">飛安違規、航管違規、危害報告率</div>
         <div class="dash-tier-status" id="tier3-status">
           <span class="ddot ddot-green"></span>
-          <span contenteditable="true" id="tier3-desc" style="outline: none; border-bottom-width: 1px; border-bottom-style: dashed; min-width: 60px;" data-save-key="el_7">1. 未發生違規事件。<br>2.訓練與安全活動參與相關的項目，尚有未達標項目。</span>
+          <span contenteditable="true" id="tier3-desc" style="outline:none;border-bottom:1px dashed rgba(255,255,255,0.3);min-width:60px;" data-save-key="el_7">1. 未發生違規事件。<br>2.訓練與安全活動參與相關的項目，尚有未達標項目。</span>
         </div>
       </div>
       <div class="dash-tier-card dt4">
@@ -743,20 +697,17 @@
         <div class="dash-tier-title">OD/JC 部門作業異常與正向指標</div>
         <div class="dash-tier-status" id="tier4-status">
           <span class="ddot ddot-green"></span>
-          <span contenteditable="true" id="tier4-summary" style="outline: none; border-bottom-width: 1px; border-bottom-style: dashed; min-width: 60px;" data-save-key="el_8">1. 未發生違規事件。<br>2.訓練與安全活動相關的項目，尚有未達標項目。<br><br></span>
+          <span contenteditable="true" id="tier4-summary" style="outline:none;border-bottom:1px dashed rgba(255,255,255,0.3);min-width:60px;" data-save-key="el_8">1. 未發生違規事件。<br>2.訓練與安全活動相關的項目，尚有未達標項目。<br><br></span>
         </div>
-        <div contenteditable="true" id="tier4-desc" style="margin:6px 0 0 18px;font-size: 0.927rem;color:#555;line-height:1.8;outline:none;min-height:10px;" data-save-key="el_9"></div>
+        <div contenteditable="true" id="tier4-desc" style="margin:6px 0 0 18px;font-size:0.927rem;color:#555;line-height:1.8;outline:none;min-height:10px;" data-save-key="el_9"></div>
       </div>
     </div>
-
   </div><!-- end dash-wrap -->
 
   <!-- ══ SePI DASHBOARD ════════════════════════════ -->
   <div class="dash-wrap" id="sepi-dashboard-block" style="border-top:2px solid #c9a84c;">
-
     <div class="dash-section-label">保安指標（SePI）執行概況</div>
     <div class="dash-tier-grid">
-
       <div class="dash-tier-card dt1">
         <div class="dash-tier-badge">SePI Tier 1 · 最高層級</div>
         <div class="dash-tier-title">調查機構介入事件</div>
@@ -764,9 +715,8 @@
           <span class="ddot ddot-green"></span>
           <span contenteditable="true" id="sepi-tier1-summary" style="outline:none;border-bottom:1px dashed rgba(255,255,255,0.3);min-width:60px;" data-save-key="el_10">本月 0 件 — 達標</span>
         </div>
-        <div contenteditable="true" id="sepi-tier1-desc" style="margin:6px 0 0 18px;font-size: 0.927rem;color:#555;line-height:1.8;outline:none;min-height:10px;" data-save-key="el_11"></div>
+        <div contenteditable="true" id="sepi-tier1-desc" style="margin:6px 0 0 18px;font-size:0.927rem;color:#555;line-height:1.8;outline:none;min-height:10px;" data-save-key="el_11"></div>
       </div>
-
       <div class="dash-tier-card dt2">
         <div class="dash-tier-badge">SePI Tier 2 · 嚴重事件</div>
         <div class="dash-tier-title">非法干擾、裁罰、重大缺點</div>
@@ -774,9 +724,8 @@
           <span class="ddot ddot-green"></span>
           <span contenteditable="true" id="sepi-tier2-summary" style="outline:none;border-bottom:1px dashed rgba(255,255,255,0.3);min-width:60px;" data-save-key="el_12">本月 0 件 — 達標</span>
         </div>
-        <div contenteditable="true" id="sepi-tier2-desc" style="margin:6px 0 0 18px;font-size: 0.927rem;color:#555;line-height:1.8;outline:none;min-height:10px;" data-save-key="el_13"></div>
+        <div contenteditable="true" id="sepi-tier2-desc" style="margin:6px 0 0 18px;font-size:0.927rem;color:#555;line-height:1.8;outline:none;min-height:10px;" data-save-key="el_13"></div>
       </div>
-
       <div class="dash-tier-card dt3">
         <div class="dash-tier-badge">SePI Tier 3 · 系統性保安指標</div>
         <div class="dash-tier-title">違規事件、門禁、資安、正向宣導</div>
@@ -784,9 +733,8 @@
           <span class="ddot ddot-green"></span>
           <span contenteditable="true" id="sepi-tier3-summary" style="outline:none;border-bottom:1px dashed rgba(255,255,255,0.3);min-width:60px;" data-save-key="el_14">各項指標皆達標</span>
         </div>
-        <div contenteditable="true" id="sepi-tier3-desc" style="margin:6px 0 0 18px;font-size: 0.927rem;color:#555;line-height:1.8;outline:none;min-height:10px;" data-save-key="el_15"></div>
+        <div contenteditable="true" id="sepi-tier3-desc" style="margin:6px 0 0 18px;font-size:0.927rem;color:#555;line-height:1.8;outline:none;min-height:10px;" data-save-key="el_15"></div>
       </div>
-
     </div>
   </div><!-- end sepi dash-wrap -->
 
@@ -1824,8 +1772,8 @@ B-18908 IFSD divert to KHH</td>
       </div>
 
       <!-- 保安指標 -->
-      <div class="section-subtitle" style="margin-top:24px;">保安指標 (SePI) 執行狀況</div>
-      <div class="sms-table-wrap">
+      <div class="section-subtitle sepi-print-hide" style="margin-top:24px;">保安指標 (SePI) 執行狀況</div>
+      <div class="sms-table-wrap sepi-print-hide">
         <table class="sms-table" id="sepi-table">
           <thead>
             <tr>
@@ -3183,23 +3131,21 @@ D5R候機室5號出境口管制門裁罰NT$5萬</td>
   }
 
 
-  // ── 列印時移除 dashboard，印完還原 ──────────────
+  // ── 列印：暫時隱藏兩個 dashboard，印完自動還原 ──
   function printWithoutDash() {
-    const ids = ['dashboard-block', 'sepi-dashboard-block'];
-    const removed = ids.map(id => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-      const placeholder = document.createComment('print-placeholder:' + id);
-      el.parentNode.replaceChild(placeholder, el);
-      return { el, placeholder };
-    }).filter(Boolean);
+    const targets = [
+      document.getElementById('dashboard-block'),
+      document.getElementById('sepi-dashboard-block')
+    ].filter(Boolean);
 
+    // 隱藏
+    targets.forEach(el => el.style.display = 'none');
+
+    // 列印
     window.print();
 
     // 還原
-    removed.forEach(({ el, placeholder }) => {
-      placeholder.parentNode.replaceChild(el, placeholder);
-    });
+    targets.forEach(el => el.style.display = '');
   }
 
   /** 保留空實作，避免舊版 HTML 中殘留的 onclick="toggleNote()" 拋出 ReferenceError */
